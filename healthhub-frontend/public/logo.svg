@@ -1,0 +1,11 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HealthHub">
+  <defs>
+    <linearGradient id="hh-g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="11" fill="url(#hh-g)"/>
+  <path d="M8 21h5.5l2.4-6.2a1 1 0 0 1 1.9.1l3.4 11.4 2.6-6.7a1 1 0 0 1 .95-.6H32"
+        stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

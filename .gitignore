@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+healthhub.db
+data/photos/
+.venv/
+.streamlit/secrets.toml
+# training: keep data/ and reports local; commit skin_model_v2.pth only if you want it deployed
+data/clear_skin/
+data/acne/
+data/oily/
+data/dry/
+data/sensitive/
+data/redness/
+data/hyperpigmentation/
+data_raw/
+skin_model_reports/
+boot_data/
+# skin_ai/skin_model.pth is a synthetic BOOTSTRAP checkpoint - replace it with one
+# trained on DermNet / ISIC / Fitzpatrick 17k before relying on the numbers.

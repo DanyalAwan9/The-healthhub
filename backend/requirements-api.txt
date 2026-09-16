@@ -1,0 +1,5 @@
+# REST API layer for the static front-end (frontend/).
+# Install alongside the main requirements.txt.
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9      # UploadFile / multipart form parsing (skin image)

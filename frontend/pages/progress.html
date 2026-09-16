@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Progress Tracking · HealthHub</title>
+  <link rel="icon" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <!-- charting for the weight/measurement trend; app.js falls back to an inline
+       SVG sparkline if this fails to load (offline) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" defer></script>
+</head>
+<body data-page="progress">
+  <div class="app-shell">
+    <div id="shell"></div>
+    <div class="app-body">
+      <main class="app-main">
+        <section class="page">
+          <div class="page__head">
+            <h1>Progress Tracking</h1>
+            <p class="muted">Log weekly — the trend matters more than any single day.</p>
+          </div>
+          <div id="prog-banner" class="hidden mb-3"></div>
+
+          <div class="grid cols-4" id="prog-stats"></div>
+
+          <div class="grid cols-2 mt-3">
+            <div class="card">
+              <div class="card__title mb-2">Weight &amp; measurements</div>
+              <div id="prog-spark" style="height:240px;position:relative"></div>
+            </div>
+            <div class="card">
+              <div class="card__title mb-2">Add an entry</div>
+              <form class="form" id="prog-form">
+                <div class="form-grid">
+                  <div class="field"><label for="p-w">Weight (kg)</label><input class="input" id="p-w" name="weight_kg" type="number" step="0.1" required></div>
+                  <div class="field"><label for="p-wa">Waist (cm)</label><input class="input" id="p-wa" name="waist_cm" type="number" step="0.1"></div>
+                  <div class="field"><label for="p-c">Chest (cm)</label><input class="input" id="p-c" name="chest_cm" type="number" step="0.1"></div>
+                </div>
+                <button class="btn btn-accent" type="submit">
+                  <svg class="ic ic--sm" aria-hidden="true"><use href="../assets/icons.svg#i-check"></use></svg>
+                  Save entry
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="grid cols-2 mt-3">
+            <div class="card card--flush">
+              <div class="card__title" style="padding:22px 22px 0">History</div>
+              <div class="table-wrap" style="border:0" id="prog-table"></div>
+            </div>
+            <div class="card">
+              <div class="card__title mb-3">Timeline</div>
+              <div class="timeline" id="prog-timeline"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../app.js" defer></script>
+</body>
+</html>

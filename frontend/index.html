@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HealthHub — your AI health & fitness companion</title>
+  <meta name="description" content="Calorie targets, a Pakistani meal plan, workouts, an AI nutritionist, skin analysis and progress tracking — in one clean dashboard.">
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="landing">
+  <div class="site">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="assets/logo.svg" alt="">
+        <span class="brand__name">Health<span>Hub</span></span>
+      </a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <button class="icon-btn" id="theme-btn" aria-label="Toggle theme"></button>
+        <span id="nav-auth"><a class="btn btn-primary" href="pages/dashboard.html">Open app</a></span>
+      </nav>
+    </header>
+
+    <main>
+      <!-- hero -->
+      <section class="hero">
+        <div class="container hero__grid">
+          <div>
+            <span class="hero__eyebrow">
+              <svg class="ic ic--sm" aria-hidden="true"><use href="assets/icons.svg#i-heart"></use></svg>
+              All your health tools, one place
+            </span>
+            <h1>Smarter targets. Cleaner routine. <span style="color:var(--accent)">Real progress.</span></h1>
+            <p class="lead">HealthHub turns your body stats and budget into a calorie plan, a 7-day Pakistani meal plan, a workout split, an AI nutritionist, skin analysis and progress tracking.</p>
+            <div class="hero__cta">
+              <a class="btn btn-primary btn-lg" href="pages/dashboard.html">
+                Get started
+                <svg class="ic ic--sm" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"></use></svg>
+              </a>
+              <a class="btn btn-outline btn-lg" href="#features">See features</a>
+            </div>
+          </div>
+
+          <div class="hero__art auth-card" id="auth-panel">
+            <!-- signed-out: create a profile -->
+            <div id="auth-signup">
+              <h2>Welcome to HealthHub</h2>
+              <p class="muted" style="margin:-4px 0 4px">Create a profile to get your targets, meal plan and progress tracking.</p>
+              <form id="auth-form" class="form" novalidate>
+                <div class="field">
+                  <label for="auth-name">Your name</label>
+                  <input class="input" id="auth-name" name="name" type="text" autocomplete="name" placeholder="e.g. Ali Raza" required>
+                </div>
+                <div class="field">
+                  <label for="auth-email">Your email</label>
+                  <input class="input" id="auth-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                </div>
+                <button class="btn btn-primary btn-block" type="submit">Create profile</button>
+              </form>
+              <p class="faint" style="font-size:.8rem">Stored on this device — no password. A profile already saved here loads automatically.</p>
+            </div>
+
+            <!-- signed-in: welcome back -->
+            <div id="auth-welcome" hidden>
+              <div class="row" style="gap:14px">
+                <span class="avatar" id="auth-avatar" style="width:52px;height:52px;font-size:1.2rem">?</span>
+                <div>
+                  <div class="faint" style="font-size:.82rem">Signed in as</div>
+                  <div style="font-weight:800;font-size:1.2rem" id="auth-user-name">there</div>
+                </div>
+              </div>
+              <p class="faint" id="auth-hint" style="font-size:.82rem;margin:-4px 0 2px" hidden></p>
+              <a class="btn btn-primary btn-block" href="pages/dashboard.html">Open dashboard</a>
+              <a class="btn btn-outline btn-block" href="pages/profile.html">Edit profile</a>
+              <button class="btn btn-ghost btn-block" id="auth-logout" type="button">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- features -->
+      <section class="features" id="features">
+        <div class="container">
+          <h2>Everything you need to stay consistent</h2>
+          <p class="sub">Six focused tools that share one profile — change your weight once, everything updates.</p>
+          <div class="grid cols-3">
+            <article class="feature">
+              <div class="feature__ic"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#i-dumbbell"></use></svg></div>
+              <h3>Fitness Assessment</h3>
+              <p class="muted">BMR/TDEE, a calorie & macro target, a budget-aware meal plan and a workout split.</p>
+            </article>
+            <article class="feature">
+              <div class="feature__ic"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#i-chat"></use></svg></div>
+              <h3>AI Nutritionist</h3>
+              <p class="muted">Chat about calories, Pakistani foods and grocery prices — grounded in real data.</p>
+            </article>
+            <article class="feature">
+              <div class="feature__ic"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#i-sparkles"></use></svg></div>
+              <h3>Skin Analysis</h3>
+              <p class="muted">Upload a selfie for a skin-type read, confidence score and a gentle routine.</p>
+            </article>
+            <article class="feature">
+              <div class="feature__ic"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#i-trending"></use></svg></div>
+              <h3>Progress Tracking</h3>
+              <p class="muted">Log weight and measurements; see the trend, a timeline and clean tables.</p>
+            </article>
+            <article class="feature">
+              <div class="feature__ic"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#i-target"></use></svg></div>
+              <h3>Personal targets</h3>
+              <p class="muted">Every number is derived from your age, size, activity, goal and budget.</p>
+            </article>
+            <article class="feature">
+              <div class="feature__ic"><svg class="ic" aria-hidden="true"><use href="assets/icons.svg#i-grid"></use></svg></div>
+              <h3>One dashboard</h3>
+              <p class="muted">A single view that ties calories, workouts, skin and progress together.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- how -->
+      <section class="features" id="how" style="background:var(--bg)">
+        <div class="container">
+          <h2>How it works</h2>
+          <p class="sub">Three steps, about two minutes.</p>
+          <div class="grid cols-3">
+            <article class="feature">
+              <span class="badge badge--primary">Step 1</span>
+              <h3 class="mt-2">Add your profile</h3>
+              <p class="muted">Height, weight, age, activity, goal and a daily food budget.</p>
+            </article>
+            <article class="feature">
+              <span class="badge badge--primary">Step 2</span>
+              <h3 class="mt-2">Get your plan</h3>
+              <p class="muted">Calorie target, macros, meal plan and workout — instantly.</p>
+            </article>
+            <article class="feature">
+              <span class="badge badge--primary">Step 3</span>
+              <h3 class="mt-2">Track & adjust</h3>
+              <p class="muted">Log progress weekly, ask the nutritionist, refine as you go.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- cta -->
+      <section class="cta-band">
+        <div class="container">
+          <div class="card">
+            <h2>Ready to see your numbers?</h2>
+            <p>Open the dashboard — no sign-up needed to explore.</p>
+            <a class="btn btn-accent btn-lg" href="pages/dashboard.html">Open HealthHub</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© <span id="yr"></span> HealthHub — not a medical service.</span>
+      <span>Built with a static front-end + REST API.</span>
+    </footer>
+  </div>
+
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+  <script src="app.js" defer></script>
+</body>
+</html>

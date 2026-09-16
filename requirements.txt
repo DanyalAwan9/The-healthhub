@@ -1,0 +1,13 @@
+streamlit>=1.32
+pandas>=2.0
+numpy>=1.24,<2.0
+matplotlib>=3.7
+Pillow>=10.0
+requests>=2.31
+google-generativeai>=0.7    # legacy SDK: nutritionist / meal / workout / product text calls
+google-genai>=1.0           # new SDK: skin_ai.gemini_vision (skin-type classification)
+pydantic>=2.0               # response_schema for the Gemini Vision skin-type call
+google-search-results>=2.4
+torch>=2.2
+torchvision>=0.17
+scikit-learn>=1.3        # metrics for train_skin_model.py

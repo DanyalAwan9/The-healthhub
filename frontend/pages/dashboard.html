@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · HealthHub</title>
+  <link rel="icon" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-page="dashboard">
+  <div class="app-shell">
+    <div id="shell"></div>
+    <div class="app-body">
+      <main class="app-main">
+        <section class="page">
+          <div class="page__head">
+            <h1>Welcome back 👋</h1>
+            <p class="muted">Here's where you stand today.</p>
+          </div>
+          <div id="page-banner" class="hidden mb-3"></div>
+
+          <div class="grid cols-4" id="dash-stats">
+            <div class="stat"><div class="skeleton line"></div><div class="skeleton line sm"></div></div>
+            <div class="stat"><div class="skeleton line"></div><div class="skeleton line sm"></div></div>
+            <div class="stat"><div class="skeleton line"></div><div class="skeleton line sm"></div></div>
+            <div class="stat"><div class="skeleton line"></div><div class="skeleton line sm"></div></div>
+          </div>
+
+          <div class="grid cols-2 mt-3">
+            <div class="card">
+              <div class="card__head"><span class="card__title">Recent activity</span></div>
+              <ul class="list-plain" id="dash-activity"></ul>
+            </div>
+            <div class="stack">
+              <div class="card" id="dash-weight"></div>
+              <div class="card">
+                <div class="card__title mb-2">Jump back in</div>
+                <div class="stack-sm">
+                  <a class="btn btn-outline btn-block" href="fitness.html">Update fitness plan</a>
+                  <a class="btn btn-outline btn-block" href="skin.html">Run a skin analysis</a>
+                  <a class="btn btn-outline btn-block" href="progress.html">Log this week's weight</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+torch>=2.2
+torchvision>=0.17
+mediapipe>=0.10          # Face landmarks. 0.10.x = solutions.FaceMesh; 1.0+ = Tasks
+                         # FaceLandmarker (preprocessing.py auto-detects; the .task
+                         # model auto-downloads to ~/.cache/healthhub on first use,
+                         # or set HEALTHHUB_FACE_LANDMARKER). Falls back to Haar/full-frame.
+opencv-contrib-python>=4.9   # contrib needed for cv2.xphoto (gray-world WB);
+                             # plain opencv-python works too - colour constancy
+                             # then falls back to a manual gray-world
+numpy>=1.24             # mediapipe < 0.10.14 needs numpy < 2 - pin here if so
+Pillow>=10.0
+google-genai>=1.0       # gemini_vision.py - skin-type classification (new SDK)
+pydantic>=2.0           # response_schema for the Gemini Vision call
+pandas>=2.0              # training.py labels CSV
+scikit-learn>=1.3        # split + metrics
+matplotlib>=3.7          # training report plots

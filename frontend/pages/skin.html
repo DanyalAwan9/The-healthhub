@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skin Analysis · HealthHub</title>
+  <link rel="icon" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-page="skin">
+  <div class="app-shell">
+    <div id="shell"></div>
+    <div class="app-body">
+      <main class="app-main">
+        <section class="page">
+          <div class="page__head">
+            <h1>Skin Analysis</h1>
+            <p class="muted">Upload a clear, front-facing selfie in even light. Not a medical diagnosis.</p>
+          </div>
+          <div id="skin-banner" class="hidden mb-3"></div>
+
+          <div class="grid cols-2">
+            <div class="card">
+              <div class="card__title mb-2">Photo</div>
+              <div class="dropzone" id="skin-drop">
+                <svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#i-upload"></use></svg>
+                <p><b>Click to upload</b> or drag an image here</p>
+                <p class="faint" style="font-size:.82rem">JPG or PNG · face clearly visible</p>
+              </div>
+              <input type="file" id="skin-file" accept="image/*" class="hidden">
+              <div id="skin-preview-wrap" class="hidden mt-3">
+                <img id="skin-preview" class="preview-img" alt="Uploaded selfie preview">
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title mb-2">What you'll get</div>
+              <ul class="list-plain">
+                <li><svg class="ic ic--sm" aria-hidden="true"><use href="../assets/icons.svg#i-check"></use></svg><span>Skin type — Oily, Dry, Normal or Combination</span></li>
+                <li><svg class="ic ic--sm" aria-hidden="true"><use href="../assets/icons.svg#i-check"></use></svg><span>A confidence score and a short explanation</span></li>
+                <li><svg class="ic ic--sm" aria-hidden="true"><use href="../assets/icons.svg#i-check"></use></svg><span>Colour-coded concerns (blemishes, texture, redness)</span></li>
+                <li><svg class="ic ic--sm" aria-hidden="true"><use href="../assets/icons.svg#i-check"></use></svg><span>A gentle 4-step routine</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="skin-result" class="mt-4">
+            <div class="empty">
+              <svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#i-image"></use></svg>
+              <p>Your analysis will appear here.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../app.js" defer></script>
+</body>
+</html>

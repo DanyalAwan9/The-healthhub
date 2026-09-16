@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Nutritionist · HealthHub</title>
+  <link rel="icon" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-page="nutrition">
+  <div class="app-shell">
+    <div id="shell"></div>
+    <div class="app-body">
+      <main class="app-main">
+        <section class="page">
+          <div class="page__head">
+            <div class="row-between">
+              <div>
+                <h1>AI Nutritionist</h1>
+                <p class="muted">Ask about calories, Pakistani foods, swaps and grocery prices.</p>
+              </div>
+              <button class="btn btn-outline btn-sm" id="chat-clear" type="button">
+                <svg class="ic ic--sm" aria-hidden="true"><use href="../assets/icons.svg#i-trash"></use></svg>
+                Clear chat
+              </button>
+            </div>
+          </div>
+          <div id="chat-banner" class="hidden mb-3"></div>
+
+          <div class="chat">
+            <div class="chat__log" id="chat-log"></div>
+            <div class="chat__suggest" id="chat-suggest">
+              <button class="chip" type="button">What's a cheap high-protein breakfast under PKR 200?</button>
+              <button class="chip" type="button">Is brown bread better than roti?</button>
+              <button class="chip" type="button">I'm always hungry on my diet</button>
+            </div>
+            <form class="chat__composer" id="chat-form">
+              <input class="input" id="chat-input" autocomplete="off" placeholder="Type a message…" aria-label="Message">
+              <button class="chat__send" type="submit" aria-label="Send message">
+                <svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#i-send"></use></svg>
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../app.js" defer></script>
+</body>
+</html>

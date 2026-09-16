@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fitness Assessment · HealthHub</title>
+  <link rel="icon" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-page="fitness">
+  <div class="app-shell">
+    <div id="shell"></div>
+    <div class="app-body">
+      <main class="app-main">
+        <section class="page">
+          <div class="page__head">
+            <h1>Fitness Assessment</h1>
+            <p class="muted">We turn your stats and budget into a calorie target, meal plan and workout.</p>
+          </div>
+
+          <div class="stepper">
+            <span class="stepper__item is-current"><span class="stepper__num">1</span> Your details</span>
+            <span class="stepper__bar"></span>
+            <span class="stepper__item"><span class="stepper__num">2</span> Your plan</span>
+          </div>
+
+          <div class="card card--pad-lg">
+            <form class="form" id="fit-form">
+              <fieldset class="fieldset">
+                <legend>Body</legend>
+                <div class="form-grid">
+                  <div class="field"><label for="f-age">Age</label><input class="input" id="f-age" name="age" type="number" min="14" max="90" value="27" required></div>
+                  <div class="field"><label for="f-gender">Gender</label>
+                    <select class="select" id="f-gender" name="gender"><option>Female</option><option>Male</option></select></div>
+                  <div class="field"><label for="f-h">Height (cm)</label><input class="input" id="f-h" name="height_cm" type="number" min="120" max="220" value="164" required></div>
+                  <div class="field"><label for="f-w">Weight (kg)</label><input class="input" id="f-w" name="weight_kg" type="number" min="35" max="200" step="0.1" value="61" required></div>
+                </div>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend>Goal & lifestyle</legend>
+                <div class="form-grid">
+                  <div class="field"><label for="f-goal">Goal</label>
+                    <select class="select" id="f-goal" name="goal"><option>Lose fat</option><option>Maintain</option><option>Build muscle</option></select></div>
+                  <div class="field"><label for="f-act">Activity</label>
+                    <select class="select" id="f-act" name="activity">
+                      <option>Sedentary</option><option selected>Moderately active</option><option>Very active</option>
+                    </select></div>
+                  <div class="field"><label for="f-diet">Diet preference</label>
+                    <select class="select" id="f-diet" name="diet_preference"><option>No preference</option><option>Vegetarian</option><option>Halal only</option></select></div>
+                </div>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend>Food budget</legend>
+                <div class="form-grid">
+                  <div class="field"><label for="f-bud">Budget (PKR)</label><input class="input" id="f-bud" name="budget_pkr" type="number" min="300" step="50" value="1200" required></div>
+                  <div class="field"><label for="f-per">Per</label>
+                    <select class="select" id="f-per" name="budget_period"><option value="daily">Day</option><option value="monthly">Month</option></select></div>
+                </div>
+                <p class="hint mt-1">Budget is a hard constraint — meals are priced from a real grocery list.</p>
+              </fieldset>
+
+              <div class="row">
+                <button class="btn btn-primary" id="fit-submit" type="submit">
+                  <svg class="ic ic--sm" aria-hidden="true"><use href="../assets/icons.svg#i-activity"></use></svg>
+                  Generate plan
+                </button>
+                <span id="fit-banner" class="hidden"></span>
+              </div>
+            </form>
+          </div>
+
+          <!-- results -->
+          <div id="fit-result" class="hidden mt-4">
+            <h2 class="mb-2">Your plan</h2>
+            <div class="grid cols-4" id="fit-macros"></div>
+
+            <div class="grid cols-2 mt-3">
+              <div class="card">
+                <div class="card__head">
+                  <span class="card__title">7-day meal plan</span>
+                  <span id="fit-meal-cost"></span>
+                </div>
+                <div class="row" id="fit-meal-tabs" style="margin-bottom:12px"></div>
+                <div id="fit-meal-body"></div>
+              </div>
+              <div class="card">
+                <div class="card__head">
+                  <span class="card__title">Workout</span>
+                  <span class="badge badge--primary" id="fit-workout-split"></span>
+                </div>
+                <div class="stack" id="fit-workout"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../app.js" defer></script>
+</body>
+</html>
