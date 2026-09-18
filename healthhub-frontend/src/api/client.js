@@ -26,7 +26,10 @@ export const fitnessAssess = (data, dynamic = true) =>
 
 // ---- nutrition -------------------------------------------------------------
 export const getChatHistory = (user) => api.get(withUser('/nutrition/history', user));
-export const nutritionChat = (message, user) => api.post('/nutrition/chat', { message, user });
+// Gemini calls on the backend are capped at 25s (GEMINI_TIMEOUT) - give this a
+// longer client-side timeout so a slow-but-successful reply isn't cut off early.
+export const nutritionChat = (message, user) =>
+  api.post('/nutrition/chat', { message, user }, { timeout: 30000 });
 export const clearChat = (user) => api.post(withUser('/nutrition/clear', user), {});
 
 // ---- skin --------------------------------------------------------------------

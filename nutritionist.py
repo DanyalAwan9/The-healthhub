@@ -6,7 +6,11 @@ the chat still works offline.
 """
 from __future__ import annotations
 
+import logging
+
 import gemini_client
+
+logger = logging.getLogger(__name__)
 
 SYSTEM_PROMPT = (
     "You are HealthHub's AI Nutritionist, an expert dietitian who specialises in "
@@ -65,6 +69,8 @@ def chat(messages: list[dict], profile: dict | None = None) -> str:
                                                 build_system_prompt(profile)))
         return out.strip() or _fallback_response(messages)
     except Exception:
+        logger.exception("Gemini chat failed (last_error=%s); using offline fallback",
+                          gemini_client.last_error())
         return _fallback_response(messages)
 
 
@@ -79,6 +85,8 @@ def chat_stream(messages: list[dict], profile: dict | None = None):
         if not produced:
             yield _fallback_response(messages)
     except Exception:
+        logger.exception("Gemini chat_stream failed (last_error=%s); using offline fallback",
+                          gemini_client.last_error())
         yield _fallback_response(messages)
 
 

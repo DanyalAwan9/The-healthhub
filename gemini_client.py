@@ -48,7 +48,9 @@ _configured = False
 _last_error: str | None = None
 _active_model: str | None = None
 
-GEN_TIMEOUT = float(os.environ.get("GEMINI_TIMEOUT", "25"))  # seconds per generate()
+GEN_TIMEOUT = float(os.environ.get("GEMINI_TIMEOUT", "15"))  # seconds per call, so a
+# stalled/blocked connection fails fast instead of hanging - callers with a heavier
+# prompt (fitness_engine's meal/workout generation) pass their own longer `timeout=`.
 
 # Error class names that mean "this model won't work now, try another".
 _SWITCHABLE = {"ResourceExhausted", "TooManyRequests", "NotFound", "FailedPrecondition"}
@@ -98,7 +100,10 @@ def _ensure() -> bool:
     if not key:
         return False
     if not _configured:
-        genai.configure(api_key=key)
+        # transport="rest" avoids the default gRPC transport, which was
+        # consistently hanging until DeadlineExceeded (504) on this network
+        # (gRPC/HTTP2 blocked or throttled) while plain HTTPS reached Google fine.
+        genai.configure(api_key=key, transport="rest")
         _configured = True
     return True
 
@@ -168,28 +173,33 @@ def generate(prompt: str, system_instruction: str | None = None,
 
 def stream(prompt: str, system_instruction: str | None = None,
            temperature: float = 0.7):
-    """Yield text chunks for a single prompt, with model fallback before first token."""
+    """Yield text for a single prompt, with model fallback before first token.
+
+    Fetches the full response in one non-streaming call and yields it as a
+    single chunk. `transport="rest"` (see `_ensure`) is used to route around
+    gRPC being blocked/throttled on some networks, and this SDK's REST
+    transport doesn't reliably support server-streamed (`stream=True`)
+    responses, so real token streaming isn't available while on REST.
+    """
     global _last_error, _active_model
     last_exc: Exception | None = None
     for name in _model_chain():
-        produced = False
         try:
             model = _make_model(name, system_instruction)
-            for chunk in model.generate_content(
-                prompt, generation_config={"temperature": temperature}, stream=True
-            ):
-                text = getattr(chunk, "text", "")
-                if text:
-                    produced = True
-                    _active_model = name
-                    _last_error = None
-                    yield text
-            if produced:
+            resp = model.generate_content(
+                prompt, generation_config={"temperature": temperature},
+                request_options={"timeout": GEN_TIMEOUT},
+            )
+            text = (getattr(resp, "text", "") or "").strip()
+            if text:
+                _active_model = name
+                _last_error = None
+                yield text
                 return
         except Exception as exc:  # noqa: BLE001
             last_exc = exc
             _record(exc)
-            if produced or not _switchable(exc):
+            if not _switchable(exc):
                 raise
             continue
     if last_exc:
@@ -203,8 +213,9 @@ def chat_stream(messages: list[dict], system_instruction: str | None = None,
                 temperature: float = 0.7):
     """Multi-turn chat. `messages` is [{'role': 'user'|'assistant', 'content': str}, ...].
 
-    The last message must be from the user. Falls back across models before the
-    first token is produced.
+    The last message must be from the user. Falls back across models before
+    yielding. Fetches the full reply in one non-streaming call and yields it as
+    a single chunk - see `stream()` above for why (REST transport + this SDK).
     """
     global _last_error, _active_model
     if not messages:
@@ -215,26 +226,24 @@ def chat_stream(messages: list[dict], system_instruction: str | None = None,
     ]
     last_exc: Exception | None = None
     for name in _model_chain():
-        produced = False
         try:
             model = _make_model(name, system_instruction)
             chat = model.start_chat(history=history)
-            for chunk in chat.send_message(
-                messages[-1]["content"], stream=True,
+            resp = chat.send_message(
+                messages[-1]["content"],
                 generation_config={"temperature": temperature},
-            ):
-                text = getattr(chunk, "text", "")
-                if text:
-                    produced = True
-                    _active_model = name
-                    _last_error = None
-                    yield text
-            if produced:
+                request_options={"timeout": GEN_TIMEOUT},
+            )
+            text = (getattr(resp, "text", "") or "").strip()
+            if text:
+                _active_model = name
+                _last_error = None
+                yield text
                 return
         except Exception as exc:  # noqa: BLE001
             last_exc = exc
             _record(exc)
-            if produced or not _switchable(exc):
+            if not _switchable(exc):
                 raise
             continue
     if last_exc:
@@ -315,7 +324,9 @@ def generate_grounded(prompt: str, system_instruction: str | None = None,
             except TypeError:
                 model = GenerativeModel(name, tools=tools)
             resp = model.generate_content(
-                prompt, generation_config={"temperature": temperature})
+                prompt, generation_config={"temperature": temperature},
+                request_options={"timeout": GEN_TIMEOUT},
+            )
             _last_error = None
             _active_model = name
             return {

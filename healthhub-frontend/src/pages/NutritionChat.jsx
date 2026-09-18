@@ -4,7 +4,7 @@ import ChatBubble from '../components/ChatBubble';
 import { useUser } from '../context/UserContext';
 import { useToast } from '../context/ToastContext';
 import { getChatHistory, nutritionChat, clearChat } from '../api/client';
-import { MOCK_CHAT_HISTORY, mockChatReply } from '../api/mockData';
+import { MOCK_CHAT_HISTORY } from '../api/mockData';
 
 const SUGGESTIONS = [
   "What's a cheap high-protein breakfast under PKR 200?",
@@ -55,11 +55,17 @@ export default function NutritionChat() {
     setMessages((m) => [...m, { role: 'user', content: q }]);
     setInput('');
     setSending(true);
+    console.log('nutritionChat request:', { message: q, user: user?.name });
     try {
       const { data } = await nutritionChat(q, user?.name);
       setMessages((m) => [...m, { role: 'bot', content: data.content }]);
-    } catch {
-      setMessages((m) => [...m, { role: 'bot', content: mockChatReply(q) }]);
+    } catch (err) {
+      console.error('nutritionChat request failed:', err);
+      const isTimeout = err.code === 'ECONNABORTED' || /timeout/i.test(err.message || '');
+      const content = isTimeout
+        ? 'AI service is slow to respond, please try again.'
+        : 'Failed to get response, please try again.';
+      setMessages((m) => [...m, { role: 'bot', content }]);
     } finally {
       setSending(false);
     }

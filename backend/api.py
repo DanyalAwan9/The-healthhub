@@ -57,7 +57,13 @@ import nutritionist
 app = FastAPI(title="HealthHub API", version="1.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
+    # TODO: replace REPLACE_WITH_NETLIFY_URL below with the actual Netlify URL
+    # once Netlify assigns it after deployment.
+    allow_origins=[
+        "http://localhost:5173",
+        "https://REPLACE_WITH_NETLIFY_URL.netlify.app",
+    ],
+    allow_methods=["*"], allow_headers=["*"],
 )
 
 db.init_db()
@@ -326,6 +332,8 @@ def chat_send(c: ChatIn):
             return {"role": "bot", "content": "Create a profile first so I can tailor answers."}
         db.add_chat(u["id"], "user", c.message)
         convo = [{"role": m["role"], "content": m["content"]} for m in db.get_chat(u["id"])]
+        print(f"[nutrition/chat] user={c.user!r} message={c.message!r} "
+              f"gemini_available={nutritionist.is_available()}")
         reply = nutritionist.chat(convo, dict(u))
         db.add_chat(u["id"], "assistant", reply)
         return {"role": "bot", "content": reply}
